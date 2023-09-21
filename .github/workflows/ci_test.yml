@@ -38,7 +38,7 @@ jobs:
       - name: Set Status
         uses: actions/github-script@v4
         with:
-          github-token: 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
+          github-token: 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
           script: |
             github.repos.createCommitStatus({
               owner: context.repo.owner,
