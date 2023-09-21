@@ -38,7 +38,7 @@ jobs:
       - name: Set Success Status
         run: |
           curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer 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" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
             -d '{"state": "success", "description": "La integración continua ha sido exitosa", "context": "CI"}'
