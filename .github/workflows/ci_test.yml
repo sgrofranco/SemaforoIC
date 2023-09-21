@@ -35,17 +35,17 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: Set Success Status
-        if: always() # Este paso se ejecutará siempre, independientemente del resultado de los pasos anteriores.
+      - name: Set Status
+        if: always()
         uses: actions/github-script@v4
         with:
           github-token: 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
           script: |
             github.repos.createCommitStatus({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            sha: context.sha,
-            state: "success",
-            description: "La integración continua ha sido exitosa",
-            context: "CI"
-      })
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: "success",
+              description: "La integración continua ha sido exitosa",
+              context: "CI"
+            })
