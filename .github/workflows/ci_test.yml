@@ -35,10 +35,17 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: Set Success Status
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer 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" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
-            -d '{"state": "success", "description": "La integración continua ha sido exitosa", "context": "CI"}'
+      - name: Set Status
+        uses: actions/github-script@v4
+        with:
+          github-token: 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
+          script: |
+            github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'success',
+              target_url: 'https://example.com',
+              description: 'La integración continua ha sido exitosa',
+              context: 'ci-example'
+            })
