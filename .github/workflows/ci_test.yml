@@ -35,12 +35,17 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: Set Status
-        env:
-          GITHUB_TOKEN: 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
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
-            -d '{"state": "success", "description": "La integración continua ha sido exitosa", "context": "CI"}'
+      - name: Set Success Status
+        if: always() # Este paso se ejecutará siempre, independientemente del resultado de los pasos anteriores.
+        uses: actions/github-script@v4
+        with:
+          github-token: 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
+          script: |
+            github.repos.createCommitStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            sha: context.sha,
+            state: "success",
+            description: "La integración continua ha sido exitosa",
+            context: "CI"
+      })
