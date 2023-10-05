@@ -1,3 +1,3 @@
 # SemaforoIC
 prueba para semaforo de IC
-push de porueba
+push de prueba runs
